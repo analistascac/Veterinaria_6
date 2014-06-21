@@ -1,13 +1,16 @@
 package Clases;
 
+import java.util.ArrayList;
+
 public class Venta {
 	private String tipo_factura;
 	private String numero_factura;
 	private String fecha;
 	private String cliente;
 	private String vendedor;
-	private int importe_total;
-	private String detalle;
+	private float importe_total;
+	private ArrayList<String> detalle;
+	private ArrayList<String> cantidad_articulos;
 	private String estado_operacion; 
 	
 	public Venta(){
@@ -17,7 +20,8 @@ public class Venta {
 		cliente = "";
 		vendedor = "";
 		importe_total = 0;
-		detalle = "";
+		detalle = new ArrayList();
+		cantidad_articulos = new ArrayList();
 		estado_operacion = "";
 	}
 
@@ -61,20 +65,30 @@ public class Venta {
 		this.vendedor = vendedor;
 	}
 
-	public int getImporte_total() {
+	public float getImporte_total() {
 		return importe_total;
 	}
 
-	public void setImporte_total(int importe_total) {
+	public void setImporte_total(float importe_total) {
 		this.importe_total = importe_total;
 	}
-
-	public String getDetalle() {
-		return detalle;
+	
+	public void agregarDetalle(String esto, int cant){
+		detalle.add(esto);
+		cantidad_articulos.add(cant+"");
 	}
-
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
+	
+	public void borrarDetalle(int i){
+		detalle.remove(i);
+		cantidad_articulos.remove(i);
+	}
+	
+	public String elemento(int i){
+		return detalle.get(i);
+	}
+	
+	public ArrayList getDetalle(){
+		return detalle;
 	}
 
 	public String getEstado_operacion() {
