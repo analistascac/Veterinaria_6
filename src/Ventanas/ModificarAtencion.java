@@ -55,20 +55,16 @@ public class ModificarAtencion extends JFrame {
 	private JComboBox cmbAnio;
 	private JComboBox cmbMes;
 	private JComboBox cmbDia;
-	private JList lstMedicamentos;
 	private DefaultListModel<String> medicamentos = new DefaultListModel();
-	private JScrollPane scrollPane;
 	private TFecha fecha = null;
 	private JComboBox cmbCliente;
-	private JComboBox cmbMedicamentos;
-	private JButton btnAgregar;
-	private JButton btnQuitar;
 	
 	public ModificarAtencion() {
+		setResizable(false);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
-				int x = JOptionPane.showConfirmDialog(null, "¿Realmente desea salir del panel de modificaciones?","Confirmar",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+				int x = JOptionPane.showConfirmDialog(null, "Â¿Realmente desea salir del panel de modificaciones?","Confirmar",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 				if(x == JOptionPane.YES_OPTION){
 					Main ventana = new Main();
 					ventana.setVisible(true);
@@ -78,7 +74,7 @@ public class ModificarAtencion extends JFrame {
 		});
 		setTitle("Modificar Atencion - Centro veterinario CAC");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 309, 380);
+		setBounds(100, 100, 309, 267);
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
@@ -115,7 +111,6 @@ public class ModificarAtencion extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Atencion atencion = new Atencion();
-				ArrayList<String> med = new ArrayList();
 				
 				atencion.setIdentificador((String)cmbId.getSelectedItem());
 				atencion.setVeterinario((String)cmbVeterinario.getSelectedItem());
@@ -125,16 +120,11 @@ public class ModificarAtencion extends JFrame {
 				atencion.setDiagnostico(txtDiagnostico.getText());
 				atencion.setFecha(cmbDia.getSelectedItem()+"/"+cmbMes.getSelectedItem()+"/"+cmbAnio.getSelectedItem());
 				
-				for(int i = 0;i<medicamentos.getSize();i++){
-					med.add(medicamentos.getElementAt(i));
-				}
 				
-				atencion.setMedicamentos(med);
-				
-				JOptionPane.showMessageDialog(null, atencion.toString(),"Información",JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, atencion.toString(),"InformaciÃ³n",JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		btnModificar.setBounds(197, 310, 89, 23);
+		btnModificar.setBounds(197, 197, 89, 23);
 		panelPrincipal.add(btnModificar);
 		
 		txtDiagnostico = new JTextField();
@@ -153,14 +143,10 @@ public class ModificarAtencion extends JFrame {
 				cmdTipoConsulta.setEnabled(true);
 				txtDiagnostico.setEnabled(true);
 				btnModificar.setEnabled(true);
-				lstMedicamentos.setEnabled(true);
 				cmbDia.setEnabled(true);
 				cmbMes.setEnabled(true);
 				cmbAnio.setEnabled(true);
 				cmbCliente.setEnabled(true);
-				cmbMedicamentos.setEnabled(true);
-				btnQuitar.setEnabled(true);
-				btnAgregar.setEnabled(true);
 				
 				llenarVeterinarios();
 				llenarMascotas();
@@ -222,50 +208,8 @@ public class ModificarAtencion extends JFrame {
 		cmbAnio.setBounds(200, 162, 85, 23);
 		panelPrincipal.add(cmbAnio);
 		
-		
-		
-		
-		JLabel lblMedicamentosUsados = new JLabel("Medicamentos usados:");
-		lblMedicamentosUsados.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMedicamentosUsados.setBounds(10, 195, 133, 14);
-		panelPrincipal.add(lblMedicamentosUsados);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(153, 196, 130, 103);
-		panelPrincipal.add(scrollPane);
-		lstMedicamentos = new JList();
-		lstMedicamentos.setEnabled(false);
-		lstMedicamentos.setModel(medicamentos);
-		scrollPane.setViewportView(lstMedicamentos);
-		
 		fecha = new TFecha(cmbDia, cmbMes, cmbAnio);
-		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setEnabled(false);
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				medicamentos.addElement(todoslosmed.getElementAt(cmbMedicamentos.getSelectedIndex()));
-			}
-		});
-		btnAgregar.setBounds(54, 247, 89, 23);
-		panelPrincipal.add(btnAgregar);
-		
-		btnQuitar = new JButton("Quitar");
-		btnQuitar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				medicamentos.remove(lstMedicamentos.getSelectedIndex());
-			}
-		});
-		btnQuitar.setEnabled(false);
-		btnQuitar.setBounds(54, 276, 89, 23);
-		panelPrincipal.add(btnQuitar);
-		
-		cmbMedicamentos = new JComboBox();
-		cmbMedicamentos.setEnabled(false);
-		cmbMedicamentos.setBounds(10, 220, 133, 20);
-		cmbMedicamentos.setModel(todoslosmed);
 		llenarMedicamentos();
-		panelPrincipal.add(cmbMedicamentos);
 	}
 	
 	private void llenarIdentificadores(){
