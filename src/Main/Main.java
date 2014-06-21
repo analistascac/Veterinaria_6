@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import Ventanas.AtencionesPorVeterinario;
+import Ventanas.ClienteMasAtendido;
 import Ventanas.MejorVendedor;
 import Ventanas.ModificarAtencion;
 import Ventanas.ModificarCliente;
@@ -161,7 +162,6 @@ public class Main extends JFrame {
 		
 		modAtencion = new JMenuItem("Atencion");
 		modAtencion.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ModificarAtencion ventana = new ModificarAtencion();
 				ventana.setVisible(true);
@@ -172,7 +172,6 @@ public class Main extends JFrame {
 		
 		modCliente = new JMenuItem("Cliente");
 		modCliente.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ModificarCliente ventana = new ModificarCliente();
 				ventana.setVisible(true);
@@ -284,6 +283,13 @@ public class Main extends JFrame {
 		mnInformes.add(mntmAnimalesPorRaza);
 		
 		mntmClienteMasAtendido = new JMenuItem("Cliente m\u00E1s atendido en la veterinaria");
+		mntmClienteMasAtendido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ClienteMasAtendido c = new ClienteMasAtendido();
+				c.setVisible(true);
+				dispose();
+			}
+		});
 		mnInformes.add(mntmClienteMasAtendido);
 		
 		

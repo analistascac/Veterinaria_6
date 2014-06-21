@@ -73,6 +73,46 @@ public class Cliente {
 	public void setTipo_pago(String tipo_pago) {
 		this.tipo_pago = tipo_pago;
 	}
+	
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public String getTipo_documento() {
+		return tipo_documento;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public String getOcupacion() {
+		return ocupacion;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getTipo_pago() {
+		return tipo_pago;
+	}
 
 	@Override
 	public String toString() {
