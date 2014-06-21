@@ -11,7 +11,6 @@ public class Atencion {
 	private String mascota;
 	private String tipo_consulta;
 	private String diagnostico;
-	private ArrayList<String> medicamentos = new ArrayList();
 	private String fecha;
 	
 	public void setIdentificador(String identificador) {
@@ -41,9 +40,6 @@ public class Atencion {
 	public String getDiagnostico() {
 		return diagnostico;
 	}
-	public ArrayList<String> getMedicamentos() {
-		return medicamentos;
-	}
 	public String getFecha() {
 		return fecha;
 	}
@@ -55,9 +51,6 @@ public class Atencion {
 	}
 	public void setDiagnostico(String diagnostico) {
 		this.diagnostico = diagnostico;
-	}
-	public void setMedicamentos(ArrayList<String> medicamentos) {
-		this.medicamentos = medicamentos;
 	}
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
@@ -73,15 +66,8 @@ public class Atencion {
 				"\nMascota = "+mascota+
 				"\nTipo de consulta = "+tipo_consulta+
 				"\nDiagnostico = "+diagnostico+
-				"\nFecha = "+fecha+
-				"\nMedicamentos usados = ";
-		
-		for(int i = 0; i<medicamentos.size();i++){
-			texto = texto+"\n - "+medicamentos.get(i);
-		}
-		
-		System.out.println(texto);
-		
+				"\nFecha = "+fecha;
+
 		return texto;
 	}
 	
