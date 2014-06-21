@@ -117,6 +117,13 @@ public class Main extends JFrame {
 		mnNuevo.add(nueEmpleado);
 		
 		nueMascota = new JMenuItem("Mascota");
+		nueMascota.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmNuevaMascota ventana = new frmNuevaMascota();
+				ventana.setVisible(true);
+				dispose();				
+			}
+		});
 		mnNuevo.add(nueMascota);
 		
 		nueProducto = new JMenuItem("Producto");
