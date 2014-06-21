@@ -21,11 +21,14 @@ import javax.swing.JCheckBox;
 
 import Clases.Auxiliar;
 import Clases.Cliente;
+import Main.Main;
 import Main.TFecha;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class frmNuevoCliente extends JFrame {
 
@@ -48,33 +51,33 @@ public class frmNuevoCliente extends JFrame {
 	private JLabel lblTipodepago;
 	private JTextField txtTelefono;
 	private JLabel lblTelefono;
+	private JTextField txtEmail;
 	
 	
 
 	@SuppressWarnings("rawtypes")
 	public frmNuevoCliente() {
-		setTitle("Nuevo Cliente");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 470, 345);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Main ventana = new Main();
+				ventana.setVisible(true);
+				dispose();
+			}
+		});
+		setResizable(false);
+		setTitle("Nuevo Cliente - Veterinaria CAC");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 415, 372);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(151, 11, 246, 21);
-		contentPane.add(txtNombre);
-		txtNombre.setColumns(10);
-		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNombre.setBounds(78, 11, 53, 21);
 		contentPane.add(lblNombre);
-		
-		txtApellido = new JTextField();
-		txtApellido.setColumns(10);
-		txtApellido.setBounds(151, 43, 246, 21);
-		contentPane.add(txtApellido);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -86,44 +89,70 @@ public class frmNuevoCliente extends JFrame {
 		lblTipoDoc.setBounds(10, 75, 120, 21);
 		contentPane.add(lblTipoDoc);
 		
-		cmbTipoDoc = new JComboBox();
-		cmbTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"DNI", "CI", "LC"}));
-		cmbTipoDoc.setBounds(151, 75, 114, 21);
-		contentPane.add(cmbTipoDoc);
-		
 		lblNumeroDoc = new JLabel("Numero de documento:");
 		lblNumeroDoc.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNumeroDoc.setBounds(0, 107, 141, 24);
 		contentPane.add(lblNumeroDoc);
-		
-		txtNumDoc = new JTextField();
-		txtNumDoc.setColumns(10);
-		txtNumDoc.setBounds(151, 104, 246, 21);
-		contentPane.add(txtNumDoc);
 		
 		lblDireccion = new JLabel("Direccion:");
 		lblDireccion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDireccion.setBounds(35, 134, 96, 21);
 		contentPane.add(lblDireccion);
 		
+		lblFecha = new JLabel("Ocupacion:");
+		lblFecha.setBounds(63, 170, 79, 21);
+		contentPane.add(lblFecha);
+		
+		lblTipodepago = new JLabel("Tipo de Pago");
+		lblTipodepago.setBounds(52, 268, 79, 21);
+		contentPane.add(lblTipodepago);
+		
+		lblTelefono = new JLabel("Telefono:");
+		lblTelefono.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTelefono.setBounds(35, 209, 96, 21);
+		contentPane.add(lblTelefono);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEmail.setBounds(35, 241, 96, 21);
+		contentPane.add(lblEmail);
+		
+		txtNombre = new JTextField();
+		txtNombre.setBounds(151, 11, 246, 21);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		txtApellido = new JTextField();
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(151, 43, 246, 21);
+		contentPane.add(txtApellido);
+		
+		cmbTipoDoc = new JComboBox();
+		cmbTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"DNI", "CI", "LC"}));
+		cmbTipoDoc.setBounds(151, 75, 114, 21);
+		contentPane.add(cmbTipoDoc);
+		
+		txtNumDoc = new JTextField();
+		txtNumDoc.setColumns(10);
+		txtNumDoc.setBounds(151, 104, 246, 21);
+		contentPane.add(txtNumDoc);
+		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(151, 136, 246, 21);
 		contentPane.add(txtDireccion);
 		
-		lblFecha = new JLabel("Ocupacion:");
-		lblFecha.setBounds(63, 170, 79, 21);
-		contentPane.add(lblFecha);
-		
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ArrayList<String> errores=new ArrayList<String>();
-				if(!Auxiliar.isValidDNI(txtNumDoc.getText()))errores.add("Numero de documento invalido.");
-				if(errores.size()>0) JOptionPane.showMessageDialog(null,Auxiliar.contenarArrayList(errores));
-				else
-				{
+				ArrayList<String> errores = new ArrayList<String>();
+				
+				if(!Auxiliar.isValidDNI(txtNumDoc.getText())) errores.add("Numero de documento invalido.");
+				
+				if(errores.size()>0){
+					JOptionPane.showMessageDialog(null,Auxiliar.contenarArrayList(errores));
+				}else{
 					Cliente cl=new Cliente();
 					cl.setApellido(txtApellido.getText());
 					cl.setNombre(txtNombre.getText());
@@ -133,39 +162,39 @@ public class frmNuevoCliente extends JFrame {
 					cl.setTipo_documento((String) cmbTipoDoc.getSelectedItem());
 					cl.setDocumento(txtNumDoc.getText());
 					cl.setTipo_pago((String)cmbTipoDePago.getSelectedItem());
+					cl.setEmail(txtEmail.getText());
 					
+					JOptionPane.showMessageDialog(null, cl.toString(),"Información",JOptionPane.INFORMATION_MESSAGE);
 				}
+				
+				
 			}
 		});
-		btnAceptar.setBounds(308, 273, 89, 23);
-		contentPane.add(btnAceptar);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(195, 273, 89, 23);
-		contentPane.add(btnCancelar);
-		
-		cmbTipoDePago = new JComboBox();
-		cmbTipoDePago.setModel(new DefaultComboBoxModel(new String[] {"Efectivo", "Tarjeta de credito", "Tarjeta de debito"}));
-		cmbTipoDePago.setBounds(151, 241, 114, 21);
-		contentPane.add(cmbTipoDePago);
 		
 		txtOcupacion = new JTextField();
 		txtOcupacion.setColumns(10);
 		txtOcupacion.setBounds(151, 170, 246, 21);
 		contentPane.add(txtOcupacion);
 		
-		lblTipodepago = new JLabel("Tipo de Pago");
-		lblTipodepago.setBounds(52, 241, 79, 21);
-		contentPane.add(lblTipodepago);
-		
 		txtTelefono = new JTextField();
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(151, 209, 246, 21);
 		contentPane.add(txtTelefono);
 		
-		lblTelefono = new JLabel("Telefono:");
-		lblTelefono.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTelefono.setBounds(35, 209, 96, 21);
-		contentPane.add(lblTelefono);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(151, 241, 246, 21);
+		contentPane.add(txtEmail);
+		btnAceptar.setBounds(308, 300, 89, 23);
+		contentPane.add(btnAceptar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(195, 300, 89, 23);
+		contentPane.add(btnCancelar);
+		
+		cmbTipoDePago = new JComboBox();
+		cmbTipoDePago.setModel(new DefaultComboBoxModel(new String[] {"Efectivo", "Tarjeta de credito", "Tarjeta de debito"}));
+		cmbTipoDePago.setBounds(151, 268, 114, 21);
+		contentPane.add(cmbTipoDePago);
 	}
 }
