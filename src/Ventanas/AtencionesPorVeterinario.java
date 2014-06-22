@@ -42,7 +42,6 @@ public class AtencionesPorVeterinario extends JFrame {
 
 	public AtencionesPorVeterinario() {
 		addWindowListener(new WindowAdapter() {
-			@Override
 			public void windowClosed(WindowEvent arg0) {
 				Main ventana = new Main();
 				ventana.setVisible(true);

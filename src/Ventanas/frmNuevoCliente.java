@@ -25,6 +25,8 @@ import Main.Main;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class frmNuevoCliente extends JFrame {
 
@@ -54,8 +56,15 @@ public class frmNuevoCliente extends JFrame {
 	private JButton btnAceptar;
 
 	public frmNuevoCliente() {
+		addWindowListener(new WindowAdapter() {
+			public void windowClosed(WindowEvent arg0) {
+				Main v = new Main();
+				v.setVisible(true);
+				dispose();
+			}
+		});
 		setTitle("Nuevo Cliente");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 470, 420);
 		setLocationRelativeTo(null);
 
@@ -67,7 +76,6 @@ public class frmNuevoCliente extends JFrame {
 		txtNombre = new JTextField();
 		txtNombre.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				if (testearCamposDeTexto()) {
 					btnAceptar.setEnabled(true);
@@ -91,7 +99,6 @@ public class frmNuevoCliente extends JFrame {
 		txtApellido = new JTextField();
 		txtApellido.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				if (testearCamposDeTexto()) {
 					btnAceptar.setEnabled(true);
@@ -130,7 +137,6 @@ public class frmNuevoCliente extends JFrame {
 		txtNumDoc = new JTextField();
 		txtNumDoc.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				if (Auxiliar.isValidDNI(txtNumDoc.getText())) {
@@ -161,7 +167,6 @@ public class frmNuevoCliente extends JFrame {
 		txtDireccion = new JTextField();
 		txtDireccion.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				testearCamposDeTexto();
@@ -247,7 +252,6 @@ public class frmNuevoCliente extends JFrame {
 		txtOcupacion = new JTextField();
 		txtOcupacion.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				testearCamposDeTexto();
@@ -266,7 +270,6 @@ public class frmNuevoCliente extends JFrame {
 		txtTelefono = new JTextField();
 		txtTelefono.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				if (Auxiliar.isValidTelephone(txtTelefono.getText())) {
@@ -298,7 +301,6 @@ public class frmNuevoCliente extends JFrame {
 		txtMail = new JTextField();
 		txtMail.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				if (Auxiliar.isValidEmail(txtMail.getText())) {

@@ -28,6 +28,8 @@ import Main.TFecha;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class frmNuevoEmpleado extends JFrame {
 
@@ -63,6 +65,14 @@ public class frmNuevoEmpleado extends JFrame {
 	private TFecha fecha;
 
 	public frmNuevoEmpleado() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				Main v = new Main();
+				v.setVisible(true);
+				dispose();
+			}
+		});
 
 		setResizable(false);
 		setTitle("Nuevo Empleado - Veterinaria CAC");
@@ -269,21 +279,18 @@ public class frmNuevoEmpleado extends JFrame {
 		contentPane.add(txtTelefono);
 
 		txtApellido.addCaretListener(new CaretListener() {
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
 		});
 
 		txtDomicilio.addCaretListener(new CaretListener() {
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
 		});
 
 		txtEmail.addCaretListener(new CaretListener() {
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				if (Auxiliar.isValidEmail(txtEmail.getText())) {
@@ -301,7 +308,6 @@ public class frmNuevoEmpleado extends JFrame {
 		});
 
 		txtMatricula.addCaretListener(new CaretListener() {
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				if (Auxiliar.isInteger(txtMatricula.getText())) {
 
@@ -317,14 +323,12 @@ public class frmNuevoEmpleado extends JFrame {
 		});
 
 		txtNombre.addCaretListener(new CaretListener() {
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
 		});
 
 		txtNumDoc.addCaretListener(new CaretListener() {
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				estadoDeLosBotones();
@@ -342,7 +346,6 @@ public class frmNuevoEmpleado extends JFrame {
 		});
 
 		txtTelefono.addCaretListener(new CaretListener() {
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				if (Auxiliar.isValidTelephone(txtTelefono.getText())) {
 
