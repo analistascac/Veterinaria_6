@@ -10,14 +10,13 @@ import Clases.*;
 
 public class Conexion {
 
-	//String url = "jdbc:sqlserver://DIGITALHARDCORE\\SQLEXPRESS2008R;databaseName=db_Veterinaria;integratedSecurity=true;";
-	String url = "jdbc:sqlserver://localhost:1433;databaseName=db_Veterinaria;integratedSecurity=true;";
+	String url = "jdbc:sqlserver://DIGITALHARDCORE\\SQLEXPRESS2008R;databaseName=db_Veterinaria;integratedSecurity=true;";
 	Connection con;
 	Statement select;
 	Statement st;
 	ResultSet rs;
-	String user = "";
-	String pass = "";
+	String user = "sa";
+	String pass = "sa";
 
 	public Conexion() {
 
@@ -27,8 +26,7 @@ public class Conexion {
 
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			//con = DriverManager.getConnection(url);
-			con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=db_Veterinaria;integratedSecurity=true;","","");
+			con = DriverManager.getConnection(url);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return false;
@@ -68,7 +66,6 @@ public class Conexion {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getStackTrace());
-			System.out.println("Error al devolver los cliente");
 		}
 		return a_Cliente;
 	}
@@ -152,7 +149,6 @@ public class Conexion {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getStackTrace());
-			System.out.println("Error al devolver los veterinarios");
 		}
 
 		return a_Veterinario;
@@ -212,7 +208,6 @@ public class Conexion {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getStackTrace());
-			System.out.println("Error al devolver las mascotas");
 		}
 
 		return a_ClienteMascota;
@@ -237,7 +232,6 @@ public class Conexion {
 						"Error, el empleado ya existe en la base de datos");
 			}
 		} catch (SQLException e) {
-			System.out.println("Error alta empleado");
 			System.out.println(e.getMessage());
 		}
 	}
@@ -287,7 +281,6 @@ public class Conexion {
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			
 		}
 	}
 
@@ -333,25 +326,23 @@ public class Conexion {
 	}
 
 	public void altaAtencion(Atencion a) throws insertDBException {
-		
-		
+
 		try {
 			CallableStatement cs = con
-					.prepareCall("{call sp_insert_atencion(?,?,?,?)}");
-			//cs.setString(1, a.getFecha());
-			cs.setString(1, a.getIdVeterinario());
-			cs.setString(2, a.getIdMascota());
-			cs.setString(3, a.getTipoConsulta());
-			cs.setString(4, a.getDiagnostico());
+					.prepareCall("{call sp_insert_atencion(?,?,?,?,?)}");
+			cs.setString(1, a.getFecha());
+			cs.setString(2, a.getIdVeterinario());
+			cs.setString(3, a.getIdMascota());
+			cs.setString(4, a.getTipoConsulta());
+			cs.setString(5, a.getDiagnostico());
 
 			int i = cs.executeUpdate();
 			if (i <= 0) {
 				throw new insertDBException(
 						"Error al querer ingresar un registro");
 			}
-			
 		} catch (SQLException e) {
-			System.out.println("Error en alta atencion");
+			System.out.println("por aca");
 			System.out.println(e.getStackTrace());
 		}
 	}

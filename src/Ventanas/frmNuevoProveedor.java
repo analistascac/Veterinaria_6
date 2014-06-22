@@ -17,8 +17,6 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class frmNuevoProveedor extends JFrame {
 
@@ -39,13 +37,6 @@ public class frmNuevoProveedor extends JFrame {
 	private JTextField txtEmail;
 
 	public frmNuevoProveedor() {
-		addWindowListener(new WindowAdapter() {
-			public void windowClosed(WindowEvent arg0) {
-				Main v=new Main();
-				v.setVisible(true);
-				dispose();
-			}
-		});
 
 		setTitle("Nuevo Proveedor - Veterinaria CAC");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -185,6 +176,7 @@ public class frmNuevoProveedor extends JFrame {
 		contentPane.add(btnCancelar);
 
 		txtCUIT.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 
 				estadoDeLosBotones();
@@ -199,12 +191,14 @@ public class frmNuevoProveedor extends JFrame {
 		});
 
 		txtDireccion.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
 		});
 
 		txtEmail.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 				
@@ -217,6 +211,7 @@ public class frmNuevoProveedor extends JFrame {
 		});
 
 		txtFax.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 				
@@ -230,12 +225,14 @@ public class frmNuevoProveedor extends JFrame {
 		});
 
 		txtRazonSocial.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
 		});
 
 		txtTelefono.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 				

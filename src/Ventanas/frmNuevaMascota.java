@@ -21,8 +21,6 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Iterator;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class frmNuevaMascota extends JFrame {
 
@@ -39,13 +37,6 @@ public class frmNuevaMascota extends JFrame {
 	// DefaultComboBoxModel<String>();
 
 	public frmNuevaMascota() {
-		addWindowListener(new WindowAdapter() {
-			public void windowClosed(WindowEvent arg0) {
-				Main v = new Main();
-				v.setVisible(true);
-				dispose();
-			}
-		});
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Nueva mascota - Veterinaria CAC");
@@ -84,6 +75,7 @@ public class frmNuevaMascota extends JFrame {
 
 		txtNombreCientifico = new JTextField();
 		txtNombreCientifico.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
@@ -94,6 +86,7 @@ public class frmNuevaMascota extends JFrame {
 
 		txtNombreVulgar = new JTextField();
 		txtNombreVulgar.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
@@ -104,6 +97,7 @@ public class frmNuevaMascota extends JFrame {
 
 		txtDescripcion = new JTextField();
 		txtDescripcion.addCaretListener(new CaretListener() {
+			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				estadoDeLosBotones();
 			}
