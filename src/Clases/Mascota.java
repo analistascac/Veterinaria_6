@@ -1,58 +1,50 @@
 package Clases;
 
 public class Mascota {
-	private String identificador;
-	private String dueno;
-	private String nombre_cientifico;
-	private String nombre_vulgar;
+	private String id;
+	private String idCliente;
+	private String nombreCientifico;
+	private String nombreVulgar;
 	private String descripcion;
-	
-	public Mascota(){
-		identificador = "";
-		dueno = "";
-		nombre_cientifico = "";
-		nombre_vulgar = "";
-		descripcion ="";
+
+	public Mascota() {
+		id = "";
+		idCliente = "";
+		nombreCientifico = "";
+		nombreVulgar = "";
+		descripcion = "";
 	}
 
-	@Override
-	public String toString() {
-		return "Mascota [identificador=" + identificador + ",\ndueno=" + dueno
-				+ ",\nnombre_cientifico=" + nombre_cientifico
-				+ ",\nnombre_vulgar=" + nombre_vulgar + ",\ndescripcion="
-				+ descripcion + "]";
+	public String getId() {
+		return id;
 	}
 
-	public String getIdentificador() {
-		return identificador;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
+	public String getIdCliente() {
+		return idCliente;
 	}
 
-	public String getDueno() {
-		return dueno;
+	public void setIdCliente(String dueno) {
+		this.idCliente = dueno;
 	}
 
-	public void setDueno(String dueno) {
-		this.dueno = dueno;
+	public String getNombreCientifico() {
+		return nombreCientifico;
 	}
 
-	public String getNombre_cientifico() {
-		return nombre_cientifico;
+	public void setNombreCientifico(String nombreCientifico) {
+		this.nombreCientifico = nombreCientifico;
 	}
 
-	public void setNombre_cientifico(String nombre_cientifico) {
-		this.nombre_cientifico = nombre_cientifico;
+	public String getNombreVulgar() {
+		return nombreVulgar;
 	}
 
-	public String getNombre_vulgar() {
-		return nombre_vulgar;
-	}
-
-	public void setNombre_vulgar(String nombre_vulgar) {
-		this.nombre_vulgar = nombre_vulgar;
+	public void setNombreVulgar(String nombreVulgar) {
+		this.nombreVulgar = nombreVulgar;
 	}
 
 	public String getDescripcion() {
@@ -62,10 +54,13 @@ public class Mascota {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Mascota [id=" + id + ",\ndueno=" + idCliente
+				+ ",\nnombre_cientifico=" + nombreCientifico
+				+ ",\nnombre_vulgar=" + nombreVulgar + ",\ndescripcion="
+				+ descripcion + "]";
+	}
+
 }

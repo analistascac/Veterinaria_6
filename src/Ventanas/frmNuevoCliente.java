@@ -1,200 +1,342 @@
 package Ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+
+import java.awt.*;
 
 import Clases.Auxiliar;
 import Clases.Cliente;
+import Conexion.Conexion;
 import Main.Main;
-import Main.TFecha;
+// TODO
+//import Main.TFecha;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class frmNuevoCliente extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
-	private JTextField txtNombre;
-	private JTextField txtApellido;
+
 	private JLabel lblTipoDoc;
 	private JLabel lblNumeroDoc;
-	private JTextField txtNumDoc;
 	private JLabel lblDireccion;
-	private JTextField txtDireccion;
 	private JLabel lblFecha;
-	private DefaultComboBoxModel tipodoc = null;
-	private JComboBox cmbTipoDoc;
+	private JLabel lblTipodepago;
+	private JLabel lblTelefono;
+
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JTextField txtNumDoc;
+	private JTextField txtOcupacion;
+	private JTextField txtDireccion;
+	private JTextField txtTelefono;
+	private JTextField txtMail;
+
+	private JComboBox<String> cmbTipoDoc;
+	private JComboBox<String> cmbTipoDePago;
+
 	private JButton btnCancelar;
 	private JButton btnAceptar;
-	private TFecha fecha;
-	private JComboBox cmbTipoDePago;
-	private JTextField txtOcupacion;
-	private JLabel lblTipodepago;
-	private JTextField txtTelefono;
-	private JLabel lblTelefono;
-	private JTextField txtEmail;
-	
-	
 
-	@SuppressWarnings("rawtypes")
 	public frmNuevoCliente() {
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				Main ventana = new Main();
-				ventana.setVisible(true);
-				dispose();
-			}
-		});
-		setResizable(false);
-		setTitle("Nuevo Cliente - Veterinaria CAC");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 415, 372);
+		setTitle("Nuevo Cliente");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 470, 420);
+		setLocationRelativeTo(null);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
+		txtNombre = new JTextField();
+		txtNombre.addCaretListener(new CaretListener() {
+
+			@Override
+			public void caretUpdate(CaretEvent arg0) {
+				if (testearCamposDeTexto()) {
+					btnAceptar.setEnabled(true);
+				} else {
+					btnAceptar.setEnabled(false);
+				}
+
+			}
+		});
+
+		txtNombre.setBounds(151, 11, 246, 21);
+
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
+
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setBounds(78, 11, 53, 21);
+		lblNombre.setBounds(25, 11, 106, 21);
 		contentPane.add(lblNombre);
-		
+
+		txtApellido = new JTextField();
+		txtApellido.addCaretListener(new CaretListener() {
+
+			@Override
+			public void caretUpdate(CaretEvent arg0) {
+				if (testearCamposDeTexto()) {
+					btnAceptar.setEnabled(true);
+				} else {
+					btnAceptar.setEnabled(false);
+				}
+
+			}
+		});
+
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(151, 43, 246, 21);
+		contentPane.add(txtApellido);
+
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblApellido.setBounds(80, 43, 51, 21);
+		lblApellido.setBounds(25, 43, 106, 21);
 		contentPane.add(lblApellido);
-		
+
 		lblTipoDoc = new JLabel("Tipo de documento:");
 		lblTipoDoc.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTipoDoc.setBounds(10, 75, 120, 21);
+		lblTipoDoc.setBounds(10, 75, 121, 21);
 		contentPane.add(lblTipoDoc);
-		
-		lblNumeroDoc = new JLabel("Numero de documento:");
+
+		cmbTipoDoc = new JComboBox<String>();
+		cmbTipoDoc.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"DNI", "CI", "LC" }));
+		cmbTipoDoc.setBounds(151, 75, 114, 21);
+		contentPane.add(cmbTipoDoc);
+
+		lblNumeroDoc = new JLabel("Documento:");
 		lblNumeroDoc.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNumeroDoc.setBounds(0, 107, 141, 24);
+		lblNumeroDoc.setBounds(0, 107, 131, 24);
 		contentPane.add(lblNumeroDoc);
-		
+
+		txtNumDoc = new JTextField();
+		txtNumDoc.addCaretListener(new CaretListener() {
+
+			@Override
+			public void caretUpdate(CaretEvent arg0) {
+
+				if (Auxiliar.isValidDNI(txtNumDoc.getText())) {
+
+					txtNumDoc.setForeground(Color.black);
+					estadoDeLosBotones();
+
+				}
+
+				else {
+
+					txtNumDoc.setForeground(Color.red);
+					btnAceptar.setEnabled(false);
+
+				}
+			}
+		});
+
+		txtNumDoc.setColumns(10);
+		txtNumDoc.setBounds(151, 104, 246, 21);
+		contentPane.add(txtNumDoc);
+
 		lblDireccion = new JLabel("Direccion:");
 		lblDireccion.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDireccion.setBounds(35, 134, 96, 21);
 		contentPane.add(lblDireccion);
-		
+
+		txtDireccion = new JTextField();
+		txtDireccion.addCaretListener(new CaretListener() {
+
+			@Override
+			public void caretUpdate(CaretEvent arg0) {
+
+				testearCamposDeTexto();
+
+			}
+		});
+
+		txtDireccion.setColumns(10);
+		txtDireccion.setBounds(151, 136, 246, 21);
+		contentPane.add(txtDireccion);
+
 		lblFecha = new JLabel("Ocupacion:");
-		lblFecha.setBounds(63, 170, 79, 21);
+		lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFecha.setBounds(25, 170, 106, 21);
 		contentPane.add(lblFecha);
-		
+
+		btnAceptar = new JButton("Aceptar");
+
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				ArrayList<String> errores = new ArrayList<String>();
+				if (!Auxiliar.isValidDNI(txtNumDoc.getText()))
+					errores.add("Numero de documento invalido.");
+				if (errores.size() > 0)
+					JOptionPane.showMessageDialog(null,
+							Auxiliar.contenarArrayList(errores));
+				else {
+					Cliente cliente = new Cliente();
+					cliente.setNombre(txtNombre.getText());
+					cliente.setApellido(txtApellido.getText());
+					cliente.setTipoDocumento((String) cmbTipoDoc
+							.getSelectedItem());
+					cliente.setDocumento(txtNumDoc.getText());
+					cliente.setDireccion(txtDireccion.getText());
+					cliente.setOcupacion(txtOcupacion.getText());
+					cliente.setTelefono(txtTelefono.getText());
+					cliente.setEmail(txtMail.getText());
+					cliente.setTipoPago((String) cmbTipoDePago
+							.getSelectedItem());
+
+					try {
+						Conexion conexion = new Conexion();
+
+						if (conexion.conectarDB()) {
+							conexion.altaCliente(cliente);
+							conexion.close();
+
+							Main frame = new Main();
+							frame.setVisible(true);
+
+							dispose();
+						}
+
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, e, "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		btnAceptar.setBounds(308, 316, 89, 23);
+		contentPane.add(btnAceptar);
+		btnAceptar.setEnabled(false);
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Main frame = new Main();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(195, 316, 89, 23);
+		contentPane.add(btnCancelar);
+
+		cmbTipoDePago = new JComboBox<String>();
+		cmbTipoDePago.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"Efectivo", "Tarjeta de credito", "Tarjeta de debito" }));
+		cmbTipoDePago.setBounds(151, 284, 114, 21);
+		contentPane.add(cmbTipoDePago);
+
+		txtOcupacion = new JTextField();
+		txtOcupacion.addCaretListener(new CaretListener() {
+
+			@Override
+			public void caretUpdate(CaretEvent arg0) {
+
+				testearCamposDeTexto();
+
+			}
+		});
+
+		txtOcupacion.setColumns(10);
+		txtOcupacion.setBounds(151, 170, 246, 21);
+		contentPane.add(txtOcupacion);
+
 		lblTipodepago = new JLabel("Tipo de Pago");
-		lblTipodepago.setBounds(52, 268, 79, 21);
+		lblTipodepago.setBounds(52, 284, 79, 21);
 		contentPane.add(lblTipodepago);
-		
+
+		txtTelefono = new JTextField();
+		txtTelefono.addCaretListener(new CaretListener() {
+
+			@Override
+			public void caretUpdate(CaretEvent arg0) {
+
+				if (Auxiliar.isValidTelephone(txtTelefono.getText())) {
+					txtTelefono.setForeground(Color.black);
+					estadoDeLosBotones();
+				} else {
+
+					txtTelefono.setForeground(Color.red);
+					btnAceptar.setEnabled(false);
+				}
+
+			}
+		});
+
+		txtTelefono.setColumns(10);
+		txtTelefono.setBounds(151, 209, 246, 21);
+		contentPane.add(txtTelefono);
+
 		lblTelefono = new JLabel("Telefono:");
 		lblTelefono.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblTelefono.setBounds(35, 209, 96, 21);
 		contentPane.add(lblTelefono);
-		
-		JLabel lblEmail = new JLabel("Email:");
+
+		JLabel lblEmail = new JLabel("E-Mail:");
 		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEmail.setBounds(35, 241, 96, 21);
+		lblEmail.setBounds(85, 248, 46, 14);
 		contentPane.add(lblEmail);
-		
-		txtNombre = new JTextField();
-		txtNombre.setBounds(151, 11, 246, 21);
-		contentPane.add(txtNombre);
-		txtNombre.setColumns(10);
-		
-		txtApellido = new JTextField();
-		txtApellido.setColumns(10);
-		txtApellido.setBounds(151, 43, 246, 21);
-		contentPane.add(txtApellido);
-		
-		cmbTipoDoc = new JComboBox();
-		cmbTipoDoc.setModel(new DefaultComboBoxModel(new String[] {"DNI", "CI", "LC"}));
-		cmbTipoDoc.setBounds(151, 75, 114, 21);
-		contentPane.add(cmbTipoDoc);
-		
-		txtNumDoc = new JTextField();
-		txtNumDoc.setColumns(10);
-		txtNumDoc.setBounds(151, 104, 246, 21);
-		contentPane.add(txtNumDoc);
-		
-		txtDireccion = new JTextField();
-		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(151, 136, 246, 21);
-		contentPane.add(txtDireccion);
-		
-		btnAceptar = new JButton("Aceptar");
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				ArrayList<String> errores = new ArrayList<String>();
-				
-				if(!Auxiliar.isValidDNI(txtNumDoc.getText())) errores.add("Numero de documento invalido.");
-				
-				if(errores.size()>0){
-					JOptionPane.showMessageDialog(null,Auxiliar.contenarArrayList(errores));
-				}else{
-					Cliente cl=new Cliente();
-					cl.setApellido(txtApellido.getText());
-					cl.setNombre(txtNombre.getText());
-					cl.setDireccion(txtDireccion.getText());
-					cl.setOcupacion(txtOcupacion.getText());
-					cl.setTelefono(txtTelefono.getText());
-					cl.setTipo_documento((String) cmbTipoDoc.getSelectedItem());
-					cl.setDocumento(txtNumDoc.getText());
-					cl.setTipo_pago((String)cmbTipoDePago.getSelectedItem());
-					cl.setEmail(txtEmail.getText());
-					
-					JOptionPane.showMessageDialog(null, cl.toString(),"Información",JOptionPane.INFORMATION_MESSAGE);
+
+		txtMail = new JTextField();
+		txtMail.addCaretListener(new CaretListener() {
+
+			@Override
+			public void caretUpdate(CaretEvent arg0) {
+
+				if (Auxiliar.isValidEmail(txtMail.getText())) {
+
+					txtMail.setForeground(Color.black);
+					estadoDeLosBotones();
+				} else {
+					txtMail.setForeground(Color.red);
+					btnAceptar.setEnabled(false);
 				}
-				
-				
+
 			}
 		});
-		
-		txtOcupacion = new JTextField();
-		txtOcupacion.setColumns(10);
-		txtOcupacion.setBounds(151, 170, 246, 21);
-		contentPane.add(txtOcupacion);
-		
-		txtTelefono = new JTextField();
-		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(151, 209, 246, 21);
-		contentPane.add(txtTelefono);
-		
-		txtEmail = new JTextField();
-		txtEmail.setColumns(10);
-		txtEmail.setBounds(151, 241, 246, 21);
-		contentPane.add(txtEmail);
-		btnAceptar.setBounds(308, 300, 89, 23);
-		contentPane.add(btnAceptar);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(195, 300, 89, 23);
-		contentPane.add(btnCancelar);
-		
-		cmbTipoDePago = new JComboBox();
-		cmbTipoDePago.setModel(new DefaultComboBoxModel(new String[] {"Efectivo", "Tarjeta de credito", "Tarjeta de debito"}));
-		cmbTipoDePago.setBounds(151, 268, 114, 21);
-		contentPane.add(cmbTipoDePago);
+		txtMail.setBounds(151, 245, 246, 20);
+		contentPane.add(txtMail);
+		txtMail.setColumns(10);
+	}
+
+	private boolean testearCamposDeTexto() {
+
+		return (txtNombre.getText().length() > 0)
+				&& (txtApellido.getText().length() > 0)
+				&& (txtNumDoc.getText().length() > 0)
+				&& (txtDireccion.getText().length() > 0)
+				&& (txtOcupacion.getText().length() > 0)
+				&& (txtTelefono.getText().length() > 0)
+				&& (txtMail.getText().length() > 0)
+				&& Auxiliar.isInteger(txtNumDoc.getText())
+				&& Auxiliar.isValidTelephone(txtTelefono.getText())
+				&& Auxiliar.isValidEmail(txtMail.getText());
+	}
+
+	private void estadoDeLosBotones() {
+
+		if (testearCamposDeTexto()) {
+			btnAceptar.setEnabled(true);
+		} else {
+			btnAceptar.setEnabled(false);
+		}
 	}
 }

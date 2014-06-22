@@ -1,138 +1,137 @@
 package Clases;
 
 public class Cliente {
-	private String identificador;
+	private String id;
 	private String nombre;
 	private String apellido;
-	private String tipo_documento;
+	private String tipoDocumento;
 	private String documento;
 	private String direccion;
 	private String ocupacion;
 	private String telefono;
 	private String email;
-	private String tipo_pago;
-	
-	
-	
+	private String tipoPago;
+
 	public Cliente(String identificador, String nombre, String apellido,
 			String tipo_documento, String documento, String direccion,
 			String ocupacion, String telefono, String email, String tipo_pago) {
 		super();
-		this.identificador = identificador;
+		this.id = identificador;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.tipo_documento = tipo_documento;
+		this.tipoDocumento = tipo_documento;
 		this.documento = documento;
 		this.direccion = direccion;
 		this.ocupacion = ocupacion;
 		this.telefono = telefono;
 		this.email = email;
-		this.tipo_pago = tipo_pago;
+		this.tipoPago = tipo_pago;
 	}
-	
-	public Cliente(){
-		identificador = "";
+
+	public Cliente() {
+		id = "";
 		nombre = "";
 		apellido = "";
-		tipo_documento = "";
+		tipoDocumento = "";
 		documento = "";
 		direccion = "";
-		ocupacion ="";
+		ocupacion = "";
 		telefono = "";
 		email = "";
-		tipo_pago = "";
+		tipoPago = "";
 	}
-	
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
+
+	public String getId() {
+		return id;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-	public void setTipo_documento(String tipo_documento) {
-		this.tipo_documento = tipo_documento;
-	}
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-	public void setOcupacion(String ocupacion) {
-		this.ocupacion = ocupacion;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setTipo_pago(String tipo_pago) {
-		this.tipo_pago = tipo_pago;
-	}
-	
-	public String getIdentificador() {
-		return identificador;
+
+	public void setId(String identificador) {
+		this.id = identificador;
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public String getApellido() {
 		return apellido;
 	}
 
-	public String getTipo_documento() {
-		return tipo_documento;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	public String getDocumento() {
 		return documento;
 	}
 
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
+
 	public String getDireccion() {
 		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public String getOcupacion() {
 		return ocupacion;
 	}
 
+	public void setOcupacion(String ocupacion) {
+		this.ocupacion = ocupacion;
+	}
+
 	public String getTelefono() {
 		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public String getTipo_pago() {
-		return tipo_pago;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTipoPago() {
+		return tipoPago;
+	}
+
+	public void setTipoPago(String tipoPago) {
+		this.tipoPago = tipoPago;
 	}
 
 	@Override
 	public String toString() {
 		String texto;
-		
-		texto = "\nidentificador = "+identificador+
-				"\nnombre = "+nombre+
-				"\napellido = "+apellido+
-				"\ntipo_documento = "+tipo_documento+
-				"\ndocumento = "+documento+
-				"\ndireccion = "+direccion+
-				"\nocupacion = "+ocupacion+
-				"\ntelefono = "+telefono+
-				"\nemail = "+email+
-				"\ntipo_pago = "+tipo_pago;
-		
+
+		texto = "\nid = " + id + "\nnombre = " + nombre + "\napellido = "
+				+ apellido + "\ntipo_documento = " + tipoDocumento
+				+ "\ndocumento = " + documento + "\ndireccion = " + direccion
+				+ "\nocupacion = " + ocupacion + "\ntelefono = " + telefono
+				+ "\nemail = " + email + "\ntipo_pago = " + tipoPago;
+
 		return texto;
 	}
-	
-	
-	
-	
+
 }

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 public class AtencionesPorVeterinario extends JFrame {
 
+	private static final long serialVersionUID = 7878778577956640625L;
 	private JPanel contentPane;
 	private JList lstFechas;
 	private JList lstIds;
@@ -38,7 +39,6 @@ public class AtencionesPorVeterinario extends JFrame {
 	private DefaultListModel tipoconsultas = new DefaultListModel();
 	private DefaultListModel fechas = new DefaultListModel();
 	private DefaultComboBoxModel veterinarios = new DefaultComboBoxModel();
-
 
 	public AtencionesPorVeterinario() {
 		addWindowListener(new WindowAdapter() {
@@ -57,12 +57,12 @@ public class AtencionesPorVeterinario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblVeterinarios = new JLabel("Veterinarios:");
 		lblVeterinarios.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVeterinarios.setBounds(10, 11, 100, 14);
 		contentPane.add(lblVeterinarios);
-		
+
 		cmbVeterinarios = new JComboBox();
 		cmbVeterinarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -71,14 +71,16 @@ public class AtencionesPorVeterinario extends JFrame {
 				tipoconsultas.clear();
 				fechas.clear();
 				ArrayList<Atencion> atenciones = new ArrayList();
-				
-				atenciones = pedirAtenciones((String)cmbVeterinarios.getSelectedItem());
-				
-				for(int i = 0; i < atenciones.size();i++){
+
+				atenciones = pedirAtenciones((String) cmbVeterinarios
+						.getSelectedItem());
+
+				for (int i = 0; i < atenciones.size(); i++) {
 					fechas.addElement(atenciones.get(i).getFecha());
-					tipoconsultas.addElement(atenciones.get(i).getTipo_consulta());
-					clientes.addElement(atenciones.get(i).getCliente());
-					ides.addElement(atenciones.get(i).getIdentificador());
+					tipoconsultas.addElement(atenciones.get(i)
+							.getTipoConsulta());
+					clientes.addElement(atenciones.get(i).getIdCliente());
+					ides.addElement(atenciones.get(i).getId());
 				}
 			}
 		});
@@ -86,78 +88,78 @@ public class AtencionesPorVeterinario extends JFrame {
 		llenarVeterinarios();
 		cmbVeterinarios.setBounds(120, 8, 314, 17);
 		contentPane.add(cmbVeterinarios);
-		
+
 		JLabel lblIdentificador = new JLabel("Identificador");
 		lblIdentificador.setBounds(10, 36, 100, 14);
 		contentPane.add(lblIdentificador);
-		
+
 		JLabel lblFecha = new JLabel("Fecha");
 		lblFecha.setBounds(120, 36, 100, 14);
 		contentPane.add(lblFecha);
-		
+
 		JLabel lblCliente = new JLabel("Cliente");
 		lblCliente.setBounds(230, 36, 100, 14);
 		contentPane.add(lblCliente);
-		
+
 		JLabel lblTipoDeConsulta = new JLabel("Tipo de consulta");
 		lblTipoDeConsulta.setBounds(340, 36, 100, 14);
 		contentPane.add(lblTipoDeConsulta);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 52, 110, 243);
 		contentPane.add(scrollPane);
-		
+
 		lstIds = new JList();
 		lstIds.setModel(ides);
 		scrollPane.setViewportView(lstIds);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(120, 52, 110, 243);
 		contentPane.add(scrollPane_1);
-		
+
 		lstFechas = new JList();
 		lstFechas.setModel(fechas);
 		scrollPane_1.setViewportView(lstFechas);
-		
+
 		JScrollPane scrollPane_2 = new JScrollPane();
 		scrollPane_2.setBounds(230, 52, 110, 243);
 		contentPane.add(scrollPane_2);
-		
+
 		lstClientes = new JList();
 		lstClientes.setModel(clientes);
 		scrollPane_2.setViewportView(lstClientes);
-		
+
 		JScrollPane scrollPane_3 = new JScrollPane();
 		scrollPane_3.setBounds(340, 52, 100, 243);
 		contentPane.add(scrollPane_3);
-		
+
 		lstTipoConsultas = new JList();
 		lstTipoConsultas.setModel(tipoconsultas);
 		scrollPane_3.setViewportView(lstTipoConsultas);
 	}
 
-	
-	private void llenarVeterinarios(){
+	private void llenarVeterinarios() {
 		veterinarios.addElement("Veterinario prueba 1");
 		veterinarios.addElement("Veterinario prueba 2");
 		veterinarios.addElement("Veterinario prueba 3");
 		veterinarios.addElement("Veterinario prueba 4");
 		veterinarios.addElement("Veterinario prueba 5");
 	}
-	private ArrayList<Atencion> pedirAtenciones(String idVeterinario){
+
+	private ArrayList<Atencion> pedirAtenciones(String idVeterinario) {
 		ArrayList<Atencion> atenciones = new ArrayList();
-		for(int i = 0; i < 5; i++){
+		for (int i = 0; i < 5; i++) {
 			Atencion ate = new Atencion();
-			ate.setCliente("Cliente prueba "+i+1);
-			ate.setDiagnostico("Diagnostico prueba "+i+1);
+			ate.setIdCliente("Cliente prueba " + i + 1);
+			ate.setDiagnostico("Diagnostico prueba " + i + 1);
 			ate.setFecha("1/1/2014");
-			ate.setIdentificador(i+"");
-			ate.setMascota("Mascota prueba"+i+1);
-			ate.setTipo_consulta("Tipo consulta prueba");
+			ate.setId(i + "");
+			ate.setIdMascota("Mascota prueba" + i + 1);
+			ate.setTipoConsulta("Tipo consulta prueba");
 			atenciones.add(ate);
 		}
-		
-		return atenciones; 
-		
+
+		return atenciones;
+
 	}
 }

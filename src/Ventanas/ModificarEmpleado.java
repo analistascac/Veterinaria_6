@@ -220,14 +220,14 @@ public class ModificarEmpleado extends JFrame {
 				!txtTelefono.getText().trim().isEmpty()){
 					Empleado empl = new Empleado();
 					empl.setApellido(txtApellido.getText());
-					empl.setDoc(txtDocumento.getText());
+					empl.setDocumento(txtDocumento.getText());
 					empl.setDomicilio(txtDomicilio.getText());
-					empl.setFecha_nacimiento(cmbDia.getSelectedItem()+"/"+cmbMes.getSelectedItem()+"/"+cmbAnio.getSelectedItem());
-					empl.setIdentificador(cmbIdentificador.getSelectedItem()+"");
+					empl.setFechaNacimiento(cmbDia.getSelectedItem()+"/"+cmbMes.getSelectedItem()+"/"+cmbAnio.getSelectedItem());
+					empl.setId(cmbIdentificador.getSelectedItem()+"");
 					empl.setNombre(txtNombre.getText());
 					empl.setTelefono(txtTelefono.getText());
 					
-					empl.setTipo_doc(cmbTipoDocumento.getSelectedItem()+"");
+					empl.setTipoDoc(cmbTipoDocumento.getSelectedItem()+"");
 					
 					if(chkbxMatricula.isSelected()){
 						if(txtMatricula.getText().trim().isEmpty()){

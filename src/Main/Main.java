@@ -20,6 +20,7 @@ import Ventanas.ModificarMascota;
 import Ventanas.ModificarProducto;
 import Ventanas.ModificarProveedor;
 import Ventanas.frmNuevaAtencion;
+import Ventanas.frmNuevaMascota;
 import Ventanas.frmNuevaVenta;
 import Ventanas.frmNuevoCliente;
 import Ventanas.frmNuevoEmpleado;
@@ -75,6 +76,7 @@ public class Main extends JFrame {
 		setTitle("Centro veterinario - CAC");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelPrincipal);
