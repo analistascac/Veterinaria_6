@@ -15,6 +15,8 @@ import Clases.*;
 import Conexion.Conexion;
 import Main.Main;
 import Main.TFecha;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class frmNuevaAtencion extends JFrame {
 
@@ -40,6 +42,13 @@ public class frmNuevaAtencion extends JFrame {
 	private JTextArea txtDiagnostico;
 
 	public frmNuevaAtencion() {
+		addWindowListener(new WindowAdapter() {
+			public void windowClosed(WindowEvent arg0) {
+				Main v = new Main();
+				v.setVisible(true);
+				dispose();
+			}
+		});
 
 		setResizable(false);
 		setTitle("Nueva Atencion - Veterinaria CAC");
@@ -115,7 +124,6 @@ public class frmNuevaAtencion extends JFrame {
 		txtDiagnostico = new JTextArea();
 		txtDiagnostico.addCaretListener(new CaretListener() {
 
-			@Override
 			public void caretUpdate(CaretEvent arg0) {
 				if (txtDiagnostico.getText().length() > 0) {
 					btnAceptar.setEnabled(true);
@@ -155,15 +163,17 @@ public class frmNuevaAtencion extends JFrame {
 
 				item = (Item) cmbVeterinario.getSelectedItem();
 				atencion.setIdVeterinario(item.getId());
-
+				
 				item = (Item) cmbMascota.getSelectedItem();
 				atencion.setIdMascota(item.getId());
 
 				atencion.setTipoConsulta((String) cmbTipoConsulta
 						.getSelectedItem());
+				
 				atencion.setDiagnostico(txtDiagnostico.getText());
+				
 				atencion.setFecha(fecha.getFechaString());
-
+				
 				try {
 					Conexion conexion = new Conexion();
 					if (conexion.conectarDB()) {
@@ -171,8 +181,8 @@ public class frmNuevaAtencion extends JFrame {
 						conexion.altaAtencion(atencion);
 						conexion.close();
 
-						// Main frame = new Main();
-						// frame.setVisible(true);
+						Main frame = new Main();
+						frame.setVisible(true);
 
 						dispose();
 					}
@@ -249,6 +259,8 @@ public class frmNuevaAtencion extends JFrame {
 				}
 				cmbMascota.setModel(modeloM);
 
+			}else{
+				JOptionPane.showMessageDialog(null, "Error en la conexion de base de datos.", "Error",JOptionPane.WARNING_MESSAGE);
 			}
 
 		} catch (Exception e) {
