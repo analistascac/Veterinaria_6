@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import Clases.Cliente;
+import Clases.Empleado;
+import Clases.Mascota;
 import Clases.Proveedor;
+import Clases.Venta;
 
 public class ConexionDB {
 
@@ -315,13 +318,13 @@ public class ConexionDB {
 			}
 		}
 		
-		public void altaVenta(ArrayList<Ventas> v) throws insertDBException{
+		public void altaVenta(ArrayList<Venta> v) throws insertDBException{
 			
 			try {
 				
 				CallableStatement cs_ = con.prepareCall("{call sp_insert_log_ventas(?,?,?,?,?,?,?,?,?)}");
-				Iterator<Ventas> it = v.iterator();
-				Ventas tmp;
+				Iterator<Venta> it = v.iterator();
+				Venta tmp;
 				while(it.hasNext()){
 					tmp = it.next();
 					cs_.setString(1, tmp.getTipoFactura());
