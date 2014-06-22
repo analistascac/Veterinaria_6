@@ -38,12 +38,7 @@ public class frmNuevaVenta extends JFrame {
 	private DefaultListModel<String> artvendidos = new DefaultListModel();
 	private JButton btnQuitar;
 	private JButton btnAgregar;
-	
-	private JTextField txtNumeroFactura;
 	private JTextField txtImporteTotal;
-	private JComboBox cmbDia;
-	private JComboBox cmbMes;
-	private JComboBox cmbAnio;
 	
 	private JComboBox cmbVendedor;
 	private DefaultComboBoxModel<String> vendedores = new DefaultComboBoxModel();
@@ -82,16 +77,6 @@ public class frmNuevaVenta extends JFrame {
 		lblVendedor.setBounds(10, 36, 100, 14);
 		contentPane.add(lblVendedor);
 		
-		JLabel lblNumeroFactura = new JLabel("Numero factura:");
-		lblNumeroFactura.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNumeroFactura.setBounds(10, 61, 100, 14);
-		contentPane.add(lblNumeroFactura);
-		
-		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFecha.setBounds(10, 86, 100, 14);
-		contentPane.add(lblFecha);
-		
 		JLabel lblImporteTotal = new JLabel("Importe total:");
 		lblImporteTotal.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblImporteTotal.setBounds(10, 111, 100, 14);
@@ -104,7 +89,7 @@ public class frmNuevaVenta extends JFrame {
 		
 		JLabel lblEstadoOperacion = new JLabel("Estado operacion:");
 		lblEstadoOperacion.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEstadoOperacion.setBounds(10, 301, 100, 14);
+		lblEstadoOperacion.setBounds(10, 61, 100, 14);
 		contentPane.add(lblEstadoOperacion);
 		
 		JLabel lblCantidad = new JLabel("Cantidad");
@@ -122,25 +107,6 @@ public class frmNuevaVenta extends JFrame {
 		llenarVendedores();
 		cmbVendedor.setBounds(120, 33, 281, 20);
 		contentPane.add(cmbVendedor);
-		
-		txtNumeroFactura = new JTextField();
-		txtNumeroFactura.setColumns(10);
-		txtNumeroFactura.setBounds(120, 58, 229, 17);
-		contentPane.add(txtNumeroFactura);
-		
-		cmbDia = new JComboBox();
-		cmbDia.setBounds(120, 83, 87, 20);
-		contentPane.add(cmbDia);
-		
-		cmbMes = new JComboBox();
-		cmbMes.setBounds(217, 83, 87, 20);
-		contentPane.add(cmbMes);
-		
-		cmbAnio = new JComboBox();
-		cmbAnio.setBounds(314, 83, 87, 20);
-		contentPane.add(cmbAnio);
-		
-		fecha = new TFecha(cmbDia, cmbMes, cmbAnio);
 		
 		txtImporteTotal = new JTextField();
 		txtImporteTotal.setColumns(10);
@@ -211,7 +177,7 @@ public class frmNuevaVenta extends JFrame {
 		cmbEstadoOperacion.setModel(estados);
 		estados.addElement("Abonado");
 		estados.addElement("Pendiente de pago");
-		cmbEstadoOperacion.setBounds(120, 298, 155, 17);
+		cmbEstadoOperacion.setBounds(120, 60, 155, 17);
 		contentPane.add(cmbEstadoOperacion);
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -222,9 +188,7 @@ public class frmNuevaVenta extends JFrame {
 				try{
 					venta.setCliente((String)cmbCliente.getSelectedItem());
 					venta.setEstado_operacion((String)cmbEstadoOperacion.getSelectedItem());
-					venta.setFecha(fecha.getFechaString());
 					venta.setImporte_total(Float.parseFloat(txtImporteTotal.getText()));
-					venta.setNumero_factura(txtNumeroFactura.getText());
 					venta.setVendedor((String)cmbVendedor.getSelectedItem());
 					
 					JOptionPane.showMessageDialog(null, venta.toString(), "Informacion", JOptionPane.INFORMATION_MESSAGE);
