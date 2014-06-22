@@ -14,8 +14,8 @@ public class ConexionDB {
 		Statement select;
 		Statement st;
 		ResultSet rs;
-		String user = "sa";
-		String pass = "sa";
+		String user = "";
+		String pass = "";
 		
 		public ConexionDB () {
 			
